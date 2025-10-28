@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "email": "admin@example.com",
+      "password": "12345"
+    },
+    {
+      "id": "2",
+      "username": "chaitanya",
+      "email": "chaitanya@example.com",
+      "password": "abcd1234"
+    },
+    {
+      "id": "5803",
+      "username": "sathish",
+      "email": "pspkpspk9399@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "4ca1",
+      "username": "sathish",
+      "email": "sathishkunapureddy@gmail.com",
+      "password": "1234"
+    }
+  ]
+}
