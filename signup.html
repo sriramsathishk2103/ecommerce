@@ -4,16 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Account</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background:#0b1220;
+      background: #0b1220;
       font-family: Arial, sans-serif;
     }
     .form-container {
       width: 350px;
       margin: 80px auto;
-      background:  white;
+      background: white;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       padding: 30px;
@@ -22,7 +21,7 @@
       text-align: center;
       margin-bottom: 20px;
     }
-    .form-container input {
+    .form-container input, .form-container button {
       width: 100%;
       margin: 10px 0;
       padding: 10px;
@@ -30,12 +29,9 @@
       border: 1px solid #ccc;
     }
     .form-container button {
-      width: 100%;
-      padding: 10px;
       background-color: #ff9900;
       color: white;
       border: none;
-      border-radius: 6px;
       cursor: pointer;
       font-size: 16px;
     }
@@ -44,11 +40,6 @@
     }
     .form-container p {
       text-align: center;
-      margin-top: 10px;
-    }
-    a {
-      color: #0073e6;
-      text-decoration: none;
     }
   </style>
 </head>
@@ -56,41 +47,37 @@
 
   <div class="form-container">
     <h2>Create Account</h2>
-    <input type="text" id="username" placeholder="Enter Username" required>
-    <input type="email" id="email" placeholder="Enter Email" required>
-    <input type="password" id="password" placeholder="Enter Password" required>
-    <button onclick="createAccount()">Sign Up</button>
+    <form id="signupForm">
+      <input type="text" id="username" placeholder="Enter Username" required>
+      <input type="email" id="email" placeholder="Enter Email" required>
+      <input type="password" id="password" placeholder="Enter Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
     <p>Already have an account? <a href="login.html">Login</a></p>
   </div>
 
   <script>
-  async function createAccount() {
-    const username = document.getElementById("username").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
+    document.getElementById('signupForm').addEventListener('submit', (e) => {
+      e.preventDefault();
 
-    if (!username || !email || !password) {
-      alert("Please fill all fields!");
-      return;
-    }
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
 
-    const res = await fetch("http://localhost:3000/users?email=" + email);
-    const existing = await res.json();
-    if (existing.length > 0) {
-      alert("User already exists! Please login.");
-      window.location.href = "login.html";
-      return;
-    }
+      let users = JSON.parse(localStorage.getItem('users')) || [];
 
-    await fetch("http://localhost:3000/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, email, password })
+      const existingUser = users.find(user => user.email === email);
+      if (existingUser) {
+        alert('Email already exists!');
+        return;
+      }
+
+      users.push({ username, email, password });
+      localStorage.setItem('users', JSON.stringify(users));
+
+      alert('Signup successful! Please login.');
+      window.location.href = 'login.html';
     });
-
-    alert("Account created successfully!");
-    window.location.href = "login.html";
-  }
-</script>
-</body>0
+  </script>
+</body>
 </html>
