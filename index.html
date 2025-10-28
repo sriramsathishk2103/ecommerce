@@ -27,7 +27,19 @@
   <footer>
     <p>© 2025 ShopEase. All rights reserved.</p>
   </footer>
+  
+  <script>
+  // Check if user is already logged in
+  const loggedIn = localStorage.getItem("loggedInUser");
+
+  if (!loggedIn) {
+    // If not logged in → go to sign-in page
+    window.location.href = "signin.html";
+  } else {
+    // If logged in → stay on home page
+    console.log("Welcome back!");
+  }
+</script>
 
 </body>
 </html>
-<!-- //vyhv oiwfejv[o -->
