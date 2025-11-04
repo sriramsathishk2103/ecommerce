@@ -1,0 +1,11 @@
+<section id="cart-items"></section>
+<p id="total"></p>
+<script>
+const cart = JSON.parse(localStorage.getItem('cart')) || [];
+let total = 0;
+document.getElementById('cart-items').innerHTML = cart.map(item => {
+  total += item.price;
+  return `<div>${item.name} - ₹${item.price}</div>`;
+}).join('');
+document.getElementById('total').textContent = "Total: ₹" + total;
+</script>
